@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="ShizukuPageTitle">
+    <style name="HikariPageTitle">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
@@ -9,7 +9,7 @@
         <item name="android:letterSpacing">0</item>
     </style>
 
-    <style name="ShizukuCard" parent="Widget.Material3.CardView.Filled">
+    <style name="HikariCard" parent="Widget.Material3.CardView.Filled">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="cardBackgroundColor">?attr/colorSurfaceContainer</item>
@@ -18,14 +18,14 @@
         <item name="strokeWidth">0dp</item>
     </style>
 
-    <style name="ShizukuIcon">
+    <style name="HikariIcon">
         <item name="android:layout_width">40dp</item>
         <item name="android:layout_height">40dp</item>
         <item name="android:background">@drawable/status_icon_background</item>
         <item name="android:padding">8dp</item>
     </style>
 
-    <style name="ShizukuCardTitle">
+    <style name="HikariCardTitle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">16sp</item>
@@ -33,7 +33,7 @@
         <item name="android:letterSpacing">0</item>
     </style>
 
-    <style name="ShizukuCardSubtitle">
+    <style name="HikariCardSubtitle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">14sp</item>
@@ -42,7 +42,7 @@
         <item name="android:letterSpacing">0</item>
     </style>
 
-    <style name="ShizukuButton" parent="Widget.Material3.Button">
+    <style name="HikariButton" parent="Widget.Material3.Button">
         <item name="android:layout_height">40dp</item>
         <item name="android:minHeight">40dp</item>
         <item name="android:minWidth">96dp</item>
@@ -61,7 +61,19 @@
         <item name="iconPadding">10dp</item>
     </style>
 
-    <style name="ShizukuIconButton" parent="Widget.Material3.Button.TextButton.Icon">
+    <style name="HikariSecondaryButton" parent="HikariButton">
+        <item name="android:textColor">?attr/colorOnSecondaryContainer</item>
+        <item name="backgroundTint">?attr/colorSecondaryContainer</item>
+        <item name="iconTint">?attr/colorOnSecondaryContainer</item>
+    </style>
+
+    <style name="HikariStopButton" parent="HikariButton">
+        <item name="android:textColor">?attr/colorOnErrorContainer</item>
+        <item name="backgroundTint">?attr/colorErrorContainer</item>
+        <item name="iconTint">?attr/colorOnErrorContainer</item>
+    </style>
+
+    <style name="HikariIconButton" parent="Widget.Material3.Button.TextButton.Icon">
         <item name="android:layout_width">40dp</item>
         <item name="android:layout_height">40dp</item>
         <item name="android:insetLeft">0dp</item>
@@ -74,7 +86,7 @@
         <item name="iconTint">?attr/colorOnSurface</item>
     </style>
 
-    <style name="ShizukuSegmentedFilterText">
+    <style name="HikariSegmentedFilterText">
         <item name="android:layout_height">match_parent</item>
         <item name="android:gravity">center</item>
         <item name="android:paddingStart">4dp</item>
@@ -87,16 +99,16 @@
         <item name="android:focusable">true</item>
     </style>
 
-    <style name="ShizukuPreviewRow">
+    <style name="HikariPreviewRow">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">12dp</item>
-        <item name="android:background">@drawable/shizuku_preview_row_background</item>
+        <item name="android:background">@drawable/hikari_preview_row_background</item>
         <item name="android:orientation">vertical</item>
         <item name="android:padding">13dp</item>
     </style>
 
-    <style name="ShizukuTextInputLayout" parent="Widget.Material3.TextInputLayout.FilledBox">
+    <style name="HikariTextInputLayout" parent="Widget.Material3.TextInputLayout.FilledBox">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="boxBackgroundColor">?attr/colorSurfaceContainerHigh</item>
@@ -114,14 +126,14 @@
         <item name="errorTextColor">?attr/colorError</item>
     </style>
 
-    <style name="ShizukuSearchInputLayout" parent="ShizukuTextInputLayout">
+    <style name="HikariSearchInputLayout" parent="HikariTextInputLayout">
         <item name="boxStrokeWidth">0dp</item>
         <item name="boxStrokeWidthFocused">0dp</item>
         <item name="boxStrokeColor">@android:color/transparent</item>
         <item name="hintTextColor">?attr/colorOnSurfaceVariant</item>
     </style>
 
-    <style name="ShizukuTextInputEditText">
+    <style name="HikariTextInputEditText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:minHeight">52dp</item>

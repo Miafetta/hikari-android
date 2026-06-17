@@ -23,14 +23,14 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnBack"
-                style="@style/ShizukuIconButton"
+                style="@style/HikariIconButton"
                 android:layout_marginEnd="8dp"
                 android:contentDescription="@string/settings_pick_foreground_package"
                 app:icon="@drawable/ic_arrow_back_24"
                 app:iconGravity="textStart" />
 
             <TextView
-                style="@style/ShizukuPageTitle"
+                style="@style/HikariPageTitle"
                 android:text="@string/settings_pick_foreground_package" />
         </LinearLayout>
     </LinearLayout>
@@ -45,13 +45,13 @@
         android:paddingBottom="10dp">
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/ShizukuSearchInputLayout"
+            style="@style/HikariSearchInputLayout"
             android:hint="@string/settings_app_search"
             app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/inputAppSearch"
-                style="@style/ShizukuTextInputEditText"
+                style="@style/HikariTextInputEditText"
                 android:inputType="text"
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>

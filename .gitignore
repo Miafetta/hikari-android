@@ -21,6 +21,8 @@ keystore.properties
 release-signing.properties
 release-signing-passwords.txt
 app-release.apk
+hikari-*.apk
+hamon-*.apk
 status-sync-android-*.apk
 *.idsig
 .codex-memory.md

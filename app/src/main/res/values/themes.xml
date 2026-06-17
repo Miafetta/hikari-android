@@ -1,5 +1,5 @@
 <resources>
-    <style name="Base.Theme.statussync" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.Hikari" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
@@ -7,5 +7,5 @@
         <item name="android:enforceNavigationBarContrast">false</item>
     </style>
 
-    <style name="Theme.statussync" parent="Base.Theme.statussync" />
+    <style name="Theme.Hikari" parent="Base.Theme.Hikari" />
 </resources>

@@ -28,5 +28,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "status-sync-android"
+rootProject.name = "Hikari"
 include(":app")

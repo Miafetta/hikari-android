@@ -7,13 +7,19 @@
     <group
         android:pivotX="54"
         android:pivotY="54"
-        android:scaleX="0.86"
-        android:scaleY="0.86">
+        android:scaleX="0.78"
+        android:scaleY="0.78">
+        <path
+            android:fillColor="@android:color/transparent"
+            android:pathData="M54,22a32,32 0,1 1,0 64"
+            android:strokeColor="#FFFFFFFF"
+            android:strokeLineCap="round"
+            android:strokeWidth="6" />
         <path
             android:fillColor="#FFFFFFFF"
-            android:pathData="M73.07,28.22l14.91,11.27h-6.83v35.85c0,2.73 -2.16,4.89 -4.89,4.89h-44.39c-2.73,0 -4.89,-2.16 -4.89,-4.89v-8.53h37.77v-27.32h-6.71z" />
+            android:pathData="M31,30h23v5h-23zM27,39h27v5h-27zM24,48h30v5h-30zM24,57h30v5h-30zM27,66h27v5h-27zM31,75h23v5h-23z" />
         <path
             android:fillColor="#FFFFFFFF"
-            android:pathData="M31.41,44.04h35.37c2.45,0 4.44,1.99 4.44,4.44v18.32c0,2.45 -1.99,4.44 -4.44,4.44h-35.37c-2.45,0 -4.44,-1.99 -4.44,-4.44v-18.32c0,-2.45 1.99,-4.44 4.44,-4.44z" />
+            android:pathData="M54,27h2v54h-2z" />
     </group>
 </vector>

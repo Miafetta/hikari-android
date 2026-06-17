@@ -1,4 +1,4 @@
-package com.miafetta.statussync
+package cafe.miafetta.hikari
 
 import android.app.Activity
 import android.content.Intent
@@ -20,10 +20,12 @@ import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.google.android.material.textfield.TextInputEditText
 import java.util.Locale
@@ -36,6 +38,7 @@ class AppPickerActivity : AppCompatActivity() {
     private lateinit var adapter: AppPackageAdapter
     private val selectedPackages = linkedSetOf<String>()
     private var allApps = emptyList<AppPackageItem>()
+    private var loadingDialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,8 +84,13 @@ class AppPickerActivity : AppCompatActivity() {
             }
         })
 
-        allApps = loadApplications()
-        updateFilteredApps()
+        loadApplicationsAsync()
+    }
+
+    override fun onDestroy() {
+        loadingDialog?.dismiss()
+        loadingDialog = null
+        super.onDestroy()
     }
 
     private fun applyContentInsets() {
@@ -142,6 +150,42 @@ class AppPickerActivity : AppCompatActivity() {
                     .thenBy(String.CASE_INSENSITIVE_ORDER, AppPackageItem::label)
                     .thenBy(String.CASE_INSENSITIVE_ORDER, AppPackageItem::packageName)
             )
+    }
+
+    private fun loadApplicationsAsync() {
+        showLoadingDialog()
+        Thread {
+            val loadedApps = loadApplications()
+            runOnUiThread {
+                if (isFinishing || isDestroyed) {
+                    return@runOnUiThread
+                }
+                allApps = loadedApps
+                updateFilteredApps()
+                dismissLoadingDialog()
+            }
+        }.start()
+    }
+
+    private fun showLoadingDialog() {
+        if (loadingDialog?.isShowing == true) {
+            return
+        }
+        val content = layoutInflater.inflate(R.layout.dialog_loading_system_apps, null)
+        loadingDialog = MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.settings_loading_system_apps)
+            .setView(content)
+            .setCancelable(false)
+            .create()
+            .also { dialog ->
+                dialog.setCanceledOnTouchOutside(false)
+                dialog.show()
+            }
+    }
+
+    private fun dismissLoadingDialog() {
+        loadingDialog?.dismiss()
+        loadingDialog = null
     }
 
     private fun getInstalledApplications(): List<ApplicationInfo> {

@@ -23,14 +23,14 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnBack"
-                style="@style/ShizukuIconButton"
+                style="@style/HikariIconButton"
                 android:layout_marginEnd="8dp"
                 android:contentDescription="@string/settings_title"
                 app:icon="@drawable/ic_arrow_back_24"
                 app:iconGravity="textStart" />
 
             <TextView
-                style="@style/ShizukuPageTitle"
+                style="@style/HikariPageTitle"
                 android:text="@string/settings_title" />
         </LinearLayout>
     </LinearLayout>
@@ -53,7 +53,7 @@
             android:paddingBottom="28dp">
 
             <com.google.android.material.card.MaterialCardView
-                style="@style/ShizukuCard"
+                style="@style/HikariCard"
                 android:layout_marginTop="8dp">
 
                 <LinearLayout
@@ -65,19 +65,42 @@
                     android:paddingEnd="16dp"
                     android:paddingBottom="20dp">
 
-                    <TextView
-                        style="@style/ShizukuCardTitle"
-                        android:text="@string/settings_permission_section" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/tvPermissionStatus"
-                        style="@style/ShizukuCardSubtitle"
-                        android:layout_marginTop="5dp"
-                        android:text="@string/status_initial" />
+                        <ImageView
+                            android:id="@+id/ivPermissionIcon"
+                            style="@style/HikariIcon"
+                            android:contentDescription="@string/settings_permission_section"
+                            android:scaleType="center"
+                            android:src="@drawable/ic_warning_24"
+                            app:tint="?attr/colorPrimary" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/HikariCardTitle"
+                                android:text="@string/settings_permission_section" />
+
+                            <TextView
+                                android:id="@+id/tvPermissionStatus"
+                                style="@style/HikariCardSubtitle"
+                                android:layout_marginTop="5dp"
+                                android:text="@string/status_initial" />
+                        </LinearLayout>
+                    </LinearLayout>
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnRequestPermission"
-                        style="@style/ShizukuButton"
+                        style="@style/HikariButton"
                         android:layout_width="wrap_content"
                         android:layout_marginTop="16dp"
                         android:gravity="center"
@@ -86,7 +109,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                style="@style/ShizukuCard"
+                style="@style/HikariCard"
                 android:layout_marginTop="12dp">
 
                 <LinearLayout
@@ -98,38 +121,60 @@
                     android:paddingEnd="16dp"
                     android:paddingBottom="20dp">
 
-                    <TextView
-                        style="@style/ShizukuCardTitle"
-                        android:text="@string/settings_server_section" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        style="@style/ShizukuCardSubtitle"
-                        android:layout_marginTop="5dp"
-                        android:text="@string/settings_server_subtitle" />
+                        <ImageView
+                            style="@style/HikariIcon"
+                            android:contentDescription="@string/settings_server_section"
+                            android:scaleType="center"
+                            android:src="@drawable/ic_link_24"
+                            app:tint="?attr/colorPrimary" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/HikariCardTitle"
+                                android:text="@string/settings_server_section" />
+
+                            <TextView
+                                style="@style/HikariCardSubtitle"
+                                android:layout_marginTop="5dp"
+                                android:text="@string/settings_server_subtitle" />
+                        </LinearLayout>
+                    </LinearLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layoutServerUrl"
-                        style="@style/ShizukuTextInputLayout"
+                        style="@style/HikariTextInputLayout"
                         android:layout_marginTop="18dp"
                         android:hint="@string/settings_server_url"
                         app:endIconMode="clear_text">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/inputServerUrl"
-                            style="@style/ShizukuTextInputEditText"
+                            style="@style/HikariTextInputEditText"
                             android:inputType="textUri"
                             android:singleLine="true" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        style="@style/ShizukuTextInputLayout"
+                        style="@style/HikariTextInputLayout"
                         android:layout_marginTop="12dp"
                         android:hint="@string/settings_upload_token"
                         app:endIconMode="password_toggle">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/inputUploadToken"
-                            style="@style/ShizukuTextInputEditText"
+                            style="@style/HikariTextInputEditText"
                             android:inputType="textPassword"
                             android:singleLine="true" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -137,7 +182,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                style="@style/ShizukuCard"
+                style="@style/HikariCard"
                 android:layout_marginTop="12dp">
 
                 <LinearLayout
@@ -149,37 +194,60 @@
                     android:paddingEnd="16dp"
                     android:paddingBottom="20dp">
 
-                    <TextView
-                        style="@style/ShizukuCardTitle"
-                        android:text="@string/settings_upload_section" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        style="@style/ShizukuCardSubtitle"
-                        android:layout_marginTop="5dp"
-                        android:text="@string/settings_upload_subtitle" />
+                        <ImageView
+                            style="@style/HikariIcon"
+                            android:contentDescription="@string/settings_upload_section"
+                            android:padding="6dp"
+                            android:scaleType="center"
+                            android:src="@drawable/ic_cloud_upload_24"
+                            app:tint="?attr/colorPrimary" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/HikariCardTitle"
+                                android:text="@string/settings_upload_section" />
+
+                            <TextView
+                                style="@style/HikariCardSubtitle"
+                                android:layout_marginTop="5dp"
+                                android:text="@string/settings_upload_subtitle" />
+                        </LinearLayout>
+                    </LinearLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layoutUploadInterval"
-                        style="@style/ShizukuTextInputLayout"
+                        style="@style/HikariTextInputLayout"
                         android:layout_marginTop="18dp"
                         android:hint="@string/settings_upload_interval">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/inputUploadInterval"
-                            style="@style/ShizukuTextInputEditText"
+                            style="@style/HikariTextInputEditText"
                             android:inputType="number"
                             android:singleLine="true" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layoutDisplayDelay"
-                        style="@style/ShizukuTextInputLayout"
+                        style="@style/HikariTextInputLayout"
                         android:layout_marginTop="12dp"
                         android:hint="@string/settings_display_delay">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/inputDisplayDelay"
-                            style="@style/ShizukuTextInputEditText"
+                            style="@style/HikariTextInputEditText"
                             android:inputType="number"
                             android:singleLine="true" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -187,7 +255,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                style="@style/ShizukuCard"
+                style="@style/HikariCard"
                 android:layout_marginTop="12dp">
 
                 <LinearLayout
@@ -200,18 +268,27 @@
                     android:paddingEnd="16dp"
                     android:paddingBottom="20dp">
 
+                    <ImageView
+                        style="@style/HikariIcon"
+                        android:contentDescription="@string/settings_privacy_section"
+                        android:padding="6dp"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_privacy_24"
+                        app:tint="?attr/colorPrimary" />
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
                         android:layout_weight="1"
                         android:orientation="vertical">
 
                         <TextView
-                            style="@style/ShizukuCardTitle"
+                            style="@style/HikariCardTitle"
                             android:text="@string/settings_privacy_section" />
 
                         <TextView
-                            style="@style/ShizukuCardSubtitle"
+                            style="@style/HikariCardSubtitle"
                             android:layout_marginTop="5dp"
                             android:text="@string/settings_privacy_subtitle" />
                     </LinearLayout>
@@ -230,7 +307,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                style="@style/ShizukuCard"
+                style="@style/HikariCard"
                 android:layout_marginTop="12dp">
 
                 <LinearLayout
@@ -242,14 +319,36 @@
                     android:paddingEnd="16dp"
                     android:paddingBottom="20dp">
 
-                    <TextView
-                        style="@style/ShizukuCardTitle"
-                        android:text="@string/settings_foreground_filter_title" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        style="@style/ShizukuCardSubtitle"
-                        android:layout_marginTop="5dp"
-                        android:text="@string/settings_foreground_filter_subtitle" />
+                        <ImageView
+                            style="@style/HikariIcon"
+                            android:contentDescription="@string/settings_foreground_filter_title"
+                            android:scaleType="center"
+                            android:src="@drawable/ic_filter_24"
+                            app:tint="?attr/colorPrimary" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/HikariCardTitle"
+                                android:text="@string/settings_foreground_filter_title" />
+
+                            <TextView
+                                style="@style/HikariCardSubtitle"
+                                android:layout_marginTop="5dp"
+                                android:text="@string/settings_foreground_filter_subtitle" />
+                        </LinearLayout>
+                    </LinearLayout>
 
                     <FrameLayout
                         android:id="@+id/foregroundFilterSegmentControl"
@@ -274,21 +373,21 @@
 
                             <TextView
                                 android:id="@+id/btnForegroundFilterNone"
-                                style="@style/ShizukuSegmentedFilterText"
+                                style="@style/HikariSegmentedFilterText"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:text="@string/settings_foreground_filter_none" />
 
                             <TextView
                                 android:id="@+id/btnForegroundFilterBlacklist"
-                                style="@style/ShizukuSegmentedFilterText"
+                                style="@style/HikariSegmentedFilterText"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:text="@string/settings_foreground_filter_blacklist" />
 
                             <TextView
                                 android:id="@+id/btnForegroundFilterWhitelist"
-                                style="@style/ShizukuSegmentedFilterText"
+                                style="@style/HikariSegmentedFilterText"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:text="@string/settings_foreground_filter_whitelist" />
@@ -297,7 +396,7 @@
 
                     <TextView
                         android:id="@+id/tvForegroundFilterHint"
-                        style="@style/ShizukuCardSubtitle"
+                        style="@style/HikariCardSubtitle"
                         android:layout_marginTop="12dp"
                         android:text="@string/settings_foreground_filter_none_hint" />
 
@@ -325,14 +424,14 @@
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btnAddForegroundPackage"
-                                style="@style/ShizukuButton"
+                                style="@style/HikariButton"
                                 android:layout_width="wrap_content"
                                 android:gravity="center"
                                 android:text="@string/action_add_foreground_package" />
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btnClearForegroundPackages"
-                                style="@style/ShizukuButton"
+                                style="@style/HikariSecondaryButton"
                                 android:layout_width="wrap_content"
                                 android:layout_marginStart="8dp"
                                 android:gravity="center"

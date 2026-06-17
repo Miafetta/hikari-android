@@ -22,12 +22,12 @@
             android:orientation="horizontal">
 
             <TextView
-                style="@style/ShizukuPageTitle"
+                style="@style/HikariPageTitle"
                 android:text="@string/app_name" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSettings"
-                style="@style/ShizukuIconButton"
+                style="@style/HikariIconButton"
                 android:contentDescription="@string/action_open_settings"
                 app:icon="@drawable/ic_settings_24"
                 app:iconGravity="textStart" />
@@ -52,7 +52,7 @@
             android:paddingBottom="28dp">
 
         <com.google.android.material.card.MaterialCardView
-            style="@style/ShizukuCard"
+            style="@style/HikariCard"
             android:layout_marginTop="8dp">
 
             <LinearLayout
@@ -66,10 +66,11 @@
                 android:paddingBottom="20dp">
 
                 <ImageView
-                    style="@style/ShizukuIcon"
+                    android:id="@+id/ivStatusIcon"
+                    style="@style/HikariIcon"
                     android:contentDescription="@string/status_section_title"
                     android:scaleType="center"
-                    android:src="@drawable/ic_verified_24"
+                    android:src="@drawable/ic_warning_24"
                     app:tint="?attr/colorPrimary" />
 
                 <LinearLayout
@@ -80,12 +81,12 @@
                     android:orientation="vertical">
 
                     <TextView
-                        style="@style/ShizukuCardTitle"
+                        style="@style/HikariCardTitle"
                         android:text="@string/status_read_permission" />
 
                     <TextView
                         android:id="@+id/tvStatus"
-                        style="@style/ShizukuCardSubtitle"
+                        style="@style/HikariCardSubtitle"
                         android:layout_marginTop="5dp"
                         android:text="@string/status_initial" />
                 </LinearLayout>
@@ -93,7 +94,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            style="@style/ShizukuCard"
+            style="@style/HikariCard"
             android:layout_marginTop="12dp">
 
             <LinearLayout
@@ -112,10 +113,10 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        style="@style/ShizukuIcon"
+                        style="@style/HikariIcon"
                         android:contentDescription="@string/sync_section_title"
                         android:scaleType="center"
-                        android:src="@drawable/ic_schedule_24"
+                        android:src="@drawable/ic_sync_24"
                         app:tint="?attr/colorPrimary" />
 
                     <LinearLayout
@@ -126,40 +127,65 @@
                         android:orientation="vertical">
 
                         <TextView
-                            style="@style/ShizukuCardTitle"
+                            style="@style/HikariCardTitle"
                             android:text="@string/sync_section_title" />
 
                         <TextView
-                            style="@style/ShizukuCardSubtitle"
+                            style="@style/HikariCardSubtitle"
                             android:layout_marginTop="5dp"
                             android:text="@string/sync_section_subtitle" />
                     </LinearLayout>
                 </LinearLayout>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnStart"
-                    style="@style/ShizukuButton"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/syncActions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
-                    android:gravity="center"
-                    android:text="@string/action_start_sync"
-                    app:icon="@drawable/ic_play_24"
-                    app:iconGravity="start" />
+                    android:orientation="vertical">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnUploadNow"
-                    style="@style/ShizukuButton"
-                    android:layout_width="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:text="@string/action_upload_now"
-                    app:icon="@drawable/ic_upload_24"
-                    app:iconGravity="start" />
+                    <FrameLayout
+                        android:layout_width="168dp"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnStart"
+                            style="@style/HikariButton"
+                            android:layout_width="match_parent"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="@string/action_start_sync"
+                            app:icon="@drawable/ic_play_24"
+                            app:iconGravity="start" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnStop"
+                            style="@style/HikariStopButton"
+                            android:layout_width="match_parent"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="@string/action_stop_sync"
+                            android:visibility="gone"
+                            app:icon="@drawable/ic_stop_24"
+                            app:iconGravity="start" />
+                    </FrameLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnUploadNow"
+                        style="@style/HikariSecondaryButton"
+                        android:layout_width="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="@string/action_upload_now"
+                        app:icon="@drawable/ic_upload_24"
+                        app:iconGravity="start" />
+                </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            style="@style/ShizukuCard"
+            style="@style/HikariCard"
             android:layout_marginTop="12dp">
 
             <LinearLayout
@@ -178,7 +204,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        style="@style/ShizukuIcon"
+                        style="@style/HikariIcon"
                         android:contentDescription="@string/preview_title"
                         android:scaleType="center"
                         android:src="@drawable/ic_article_24"
@@ -192,12 +218,12 @@
                         android:orientation="vertical">
 
                         <TextView
-                            style="@style/ShizukuCardTitle"
+                            style="@style/HikariCardTitle"
                             android:text="@string/preview_title" />
 
                         <TextView
                             android:id="@+id/tvLastUpdated"
-                            style="@style/ShizukuCardSubtitle"
+                            style="@style/HikariCardSubtitle"
                             android:layout_marginTop="5dp"
                             android:text="@string/preview_waiting" />
                     </LinearLayout>
@@ -205,7 +231,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnRefresh"
-                    style="@style/ShizukuButton"
+                    style="@style/HikariButton"
                     android:layout_width="wrap_content"
                     android:layout_marginTop="18dp"
                     android:gravity="center"
@@ -219,7 +245,7 @@
                     android:layout_marginTop="12dp"
                     android:orientation="vertical">
 
-                    <LinearLayout style="@style/ShizukuPreviewRow">
+                    <LinearLayout style="@style/HikariPreviewRow">
                         <TextView
                             style="@style/StatusPreviewLabel"
                             android:text="@string/field_model" />
@@ -230,7 +256,7 @@
                             android:text="@string/preview_waiting" />
                     </LinearLayout>
 
-                    <LinearLayout style="@style/ShizukuPreviewRow">
+                    <LinearLayout style="@style/HikariPreviewRow">
                         <TextView
                             style="@style/StatusPreviewLabel"
                             android:text="@string/field_battery" />
@@ -241,7 +267,7 @@
                             android:text="@string/preview_waiting" />
                     </LinearLayout>
 
-                    <LinearLayout style="@style/ShizukuPreviewRow">
+                    <LinearLayout style="@style/HikariPreviewRow">
                         <TextView
                             style="@style/StatusPreviewLabel"
                             android:text="@string/field_current_app_package" />
@@ -252,7 +278,7 @@
                             android:text="@string/preview_waiting" />
                     </LinearLayout>
 
-                    <LinearLayout style="@style/ShizukuPreviewRow">
+                    <LinearLayout style="@style/HikariPreviewRow">
                         <TextView
                             style="@style/StatusPreviewLabel"
                             android:text="@string/field_current_app_name" />
@@ -263,7 +289,7 @@
                             android:text="@string/preview_waiting" />
                     </LinearLayout>
 
-                    <LinearLayout style="@style/ShizukuPreviewRow">
+                    <LinearLayout style="@style/HikariPreviewRow">
                         <TextView
                             style="@style/StatusPreviewLabel"
                             android:text="@string/field_wifi" />
@@ -274,7 +300,7 @@
                             android:text="@string/preview_waiting" />
                     </LinearLayout>
 
-                    <LinearLayout style="@style/ShizukuPreviewRow">
+                    <LinearLayout style="@style/HikariPreviewRow">
                         <TextView
                             style="@style/StatusPreviewLabel"
                             android:text="@string/field_network" />
@@ -285,7 +311,7 @@
                             android:text="@string/preview_waiting" />
                     </LinearLayout>
 
-                    <LinearLayout style="@style/ShizukuPreviewRow">
+                    <LinearLayout style="@style/HikariPreviewRow">
                         <TextView
                             style="@style/StatusPreviewLabel"
                             android:text="@string/field_location" />

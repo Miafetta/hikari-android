@@ -1,4 +1,4 @@
-package com.miafetta.statussync
+package cafe.miafetta.hikari
 
 import android.Manifest
 import android.content.Intent
@@ -8,7 +8,9 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.animation.PathInterpolator
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -38,7 +40,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvWifiValue: TextView
     private lateinit var tvNetworkValue: TextView
     private lateinit var tvLocationValue: TextView
+    private lateinit var ivStatusIcon: ImageView
     private lateinit var btnRefresh: Button
+    private lateinit var btnStart: Button
+    private lateinit var btnStop: Button
+    private var syncControlsInitialized = false
+    private var syncControlsShowingStop = false
+    private val syncControlInterpolator = PathInterpolator(0.2f, 0f, 0f, 1f)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +56,9 @@ class MainActivity : AppCompatActivity() {
         setupTopBarScrollBehavior()
 
         tvStatus = findViewById(R.id.tvStatus)
-        val btnStart = findViewById<Button>(R.id.btnStart)
+        ivStatusIcon = findViewById(R.id.ivStatusIcon)
+        btnStart = findViewById(R.id.btnStart)
+        btnStop = findViewById(R.id.btnStop)
         val btnUploadNow = findViewById<Button>(R.id.btnUploadNow)
         val btnSettings = findViewById<Button>(R.id.btnSettings)
         btnRefresh = findViewById(R.id.btnRefresh)
@@ -83,6 +93,12 @@ class MainActivity : AppCompatActivity() {
                     updateStatus()
                 }
             }
+        }
+
+        btnStop.setOnClickListener {
+            StatusSyncService.stop(this)
+            updateSyncControls()
+            AppToast.show(this, R.string.toast_sync_stopped)
         }
 
         btnUploadNow.setOnClickListener {
@@ -121,11 +137,13 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+        updateSyncControls()
     }
 
     override fun onResume() {
         super.onResume()
         updateStatus()
+        updateSyncControls()
     }
 
     override fun onRequestPermissionsResult(
@@ -205,12 +223,87 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateStatus() {
-        val statusText = when (getShizukuStatus()) {
+        val status = getShizukuStatus()
+        val statusText = when (status) {
             ShizukuStatus.AUTHORIZED -> R.string.status_authorized
             ShizukuStatus.NEEDS_PERMISSION -> R.string.status_needs_permission
             ShizukuStatus.UNAVAILABLE -> R.string.status_unavailable
         }
+
+        val iconRes = if (status == ShizukuStatus.AUTHORIZED) {
+            R.drawable.ic_verified_24
+        } else {
+            R.drawable.ic_warning_24
+        }
         tvStatus.setText(statusText)
+        ivStatusIcon.setImageResource(iconRes)
+    }
+
+    private fun updateSyncControls() {
+        val showStop = StatusSyncService.isRunning()
+        if (!syncControlsInitialized) {
+            setSyncControlState(showStop)
+            syncControlsInitialized = true
+            return
+        }
+        if (showStop == syncControlsShowingStop) {
+            return
+        }
+        animateSyncControlSwitch(showStop)
+    }
+
+    private fun setSyncControlState(showStop: Boolean) {
+        val visibleButton = if (showStop) btnStop else btnStart
+        val hiddenButton = if (showStop) btnStart else btnStop
+
+        visibleButton.animate().cancel()
+        hiddenButton.animate().cancel()
+        visibleButton.alpha = 1f
+        visibleButton.scaleX = 1f
+        visibleButton.scaleY = 1f
+        visibleButton.isEnabled = true
+        visibleButton.visibility = View.VISIBLE
+        hiddenButton.alpha = 0f
+        hiddenButton.scaleX = SYNC_CONTROL_HIDDEN_SCALE
+        hiddenButton.scaleY = SYNC_CONTROL_HIDDEN_SCALE
+        hiddenButton.isEnabled = false
+        hiddenButton.visibility = View.GONE
+        syncControlsShowingStop = showStop
+    }
+
+    private fun animateSyncControlSwitch(showStop: Boolean) {
+        val incomingButton = if (showStop) btnStop else btnStart
+        val outgoingButton = if (showStop) btnStart else btnStop
+
+        incomingButton.animate().cancel()
+        outgoingButton.animate().cancel()
+        incomingButton.alpha = 0f
+        incomingButton.scaleX = SYNC_CONTROL_HIDDEN_SCALE
+        incomingButton.scaleY = SYNC_CONTROL_HIDDEN_SCALE
+        incomingButton.isEnabled = true
+        incomingButton.visibility = View.VISIBLE
+        outgoingButton.isEnabled = false
+
+        outgoingButton.animate()
+            .alpha(0f)
+            .scaleX(SYNC_CONTROL_HIDDEN_SCALE)
+            .scaleY(SYNC_CONTROL_HIDDEN_SCALE)
+            .setDuration(SYNC_CONTROL_ANIMATION_DURATION_MS)
+            .setInterpolator(syncControlInterpolator)
+            .withEndAction {
+                outgoingButton.visibility = View.GONE
+                outgoingButton.scaleX = SYNC_CONTROL_HIDDEN_SCALE
+                outgoingButton.scaleY = SYNC_CONTROL_HIDDEN_SCALE
+            }
+            .start()
+        incomingButton.animate()
+            .alpha(1f)
+            .scaleX(1f)
+            .scaleY(1f)
+            .setDuration(SYNC_CONTROL_ANIMATION_DURATION_MS)
+            .setInterpolator(syncControlInterpolator)
+            .start()
+        syncControlsShowingStop = showStop
     }
 
     private fun setPreviewWaiting() {
@@ -353,6 +446,7 @@ class MainActivity : AppCompatActivity() {
             StatusSyncPowerKeeper.applyBestEffort(applicationContext)
         }
         StatusSyncService.start(this)
+        updateSyncControls()
         val interval = AppSettings.uploadIntervalMinutes(this)
         AppToast.show(
             this,
@@ -400,6 +494,8 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val REQUEST_POST_NOTIFICATIONS = 1001
+        private const val SYNC_CONTROL_ANIMATION_DURATION_MS = 220L
+        private const val SYNC_CONTROL_HIDDEN_SCALE = 0.96f
     }
 
 }

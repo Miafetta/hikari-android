@@ -1,4 +1,4 @@
-package com.miafetta.statussync
+package cafe.miafetta.hikari
 
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
@@ -14,6 +14,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -31,6 +32,7 @@ import java.util.Locale
 class SettingsActivity : AppCompatActivity() {
 
     private lateinit var tvPermissionStatus: TextView
+    private lateinit var ivPermissionIcon: ImageView
     private lateinit var layoutServerUrl: TextInputLayout
     private lateinit var layoutUploadInterval: TextInputLayout
     private lateinit var layoutDisplayDelay: TextInputLayout
@@ -65,6 +67,7 @@ class SettingsActivity : AppCompatActivity() {
         setupTopBarScrollBehavior()
 
         tvPermissionStatus = findViewById(R.id.tvPermissionStatus)
+        ivPermissionIcon = findViewById(R.id.ivPermissionIcon)
         layoutServerUrl = findViewById(R.id.layoutServerUrl)
         layoutUploadInterval = findViewById(R.id.layoutUploadInterval)
         layoutDisplayDelay = findViewById(R.id.layoutDisplayDelay)
@@ -437,12 +440,19 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun updatePermissionStatus() {
-        val statusText = when (getShizukuStatus()) {
+        val status = getShizukuStatus()
+        val statusText = when (status) {
             ShizukuStatus.AUTHORIZED -> R.string.status_authorized
             ShizukuStatus.NEEDS_PERMISSION -> R.string.status_needs_permission
             ShizukuStatus.UNAVAILABLE -> R.string.status_unavailable
         }
+        val iconRes = if (status == ShizukuStatus.AUTHORIZED) {
+            R.drawable.ic_verified_24
+        } else {
+            R.drawable.ic_warning_24
+        }
         tvPermissionStatus.setText(statusText)
+        ivPermissionIcon.setImageResource(iconRes)
     }
 
     private fun getShizukuStatus(): ShizukuStatus {

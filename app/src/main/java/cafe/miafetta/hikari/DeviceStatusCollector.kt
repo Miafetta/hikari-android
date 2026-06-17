@@ -1,4 +1,4 @@
-package com.miafetta.statussync
+package cafe.miafetta.hikari
 
 import android.content.Context
 import org.json.JSONObject

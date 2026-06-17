@@ -1,4 +1,4 @@
-package com.miafetta.statussync
+package cafe.miafetta.hikari
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -44,6 +44,7 @@ class StatusSyncService : Service() {
             buildNotification(getString(R.string.notification_sync_starting)),
             ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE
         )
+        serviceActive.set(true)
         acquireWakeLock()
 
         if (running.compareAndSet(false, true)) {
@@ -55,6 +56,7 @@ class StatusSyncService : Service() {
 
     override fun onDestroy() {
         running.set(false)
+        serviceActive.set(false)
         releaseWakeLock()
         executor.shutdownNow()
         super.onDestroy()
@@ -106,7 +108,7 @@ class StatusSyncService : Service() {
         val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
         wakeLock = powerManager.newWakeLock(
             PowerManager.PARTIAL_WAKE_LOCK,
-            "$packageName:status-sync"
+            "$packageName:hikari-sync"
         ).apply {
             setReferenceCounted(false)
             acquire()
@@ -120,6 +122,7 @@ class StatusSyncService : Service() {
 
     private fun stopSyncService() {
         running.set(false)
+        serviceActive.set(false)
         releaseWakeLock()
         ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE)
         stopSelf()
@@ -155,7 +158,7 @@ class StatusSyncService : Service() {
             .setCategory(NotificationCompat.CATEGORY_SERVICE)
             .setForegroundServiceBehavior(NotificationCompat.FOREGROUND_SERVICE_IMMEDIATE)
             .setPriority(NotificationCompat.PRIORITY_LOW)
-            .addAction(R.drawable.ic_schedule_24, getString(R.string.notification_sync_stop), stopIntent)
+            .addAction(R.drawable.ic_stop_24, getString(R.string.notification_sync_stop), stopIntent)
             .build()
     }
 
@@ -173,15 +176,25 @@ class StatusSyncService : Service() {
     }
 
     companion object {
-        private const val ACTION_START = "com.miafetta.statussync.action.START_SYNC"
-        private const val ACTION_STOP = "com.miafetta.statussync.action.STOP_SYNC"
-        private const val NOTIFICATION_CHANNEL_ID = "status_sync_foreground"
+        private val serviceActive = AtomicBoolean(false)
+        private const val ACTION_START = "cafe.miafetta.hikari.action.START_SYNC"
+        private const val ACTION_STOP = "cafe.miafetta.hikari.action.STOP_SYNC"
+        private const val NOTIFICATION_CHANNEL_ID = "hikari_foreground"
         private const val NOTIFICATION_ID = 2001
         private const val SLEEP_CHUNK_MILLIS = 5_000L
 
         fun start(context: Context) {
+            serviceActive.set(true)
             val intent = Intent(context, StatusSyncService::class.java).setAction(ACTION_START)
             ContextCompat.startForegroundService(context, intent)
         }
+
+        fun stop(context: Context) {
+            serviceActive.set(false)
+            val intent = Intent(context, StatusSyncService::class.java).setAction(ACTION_STOP)
+            context.startService(intent)
+        }
+
+        fun isRunning(): Boolean = serviceActive.get()
     }
 }

@@ -1,4 +1,4 @@
-package com.miafetta.statussync
+package cafe.miafetta.hikari
 
 import android.content.Context
 import androidx.core.content.edit
@@ -13,7 +13,7 @@ object AppSettings {
     const val FOREGROUND_FILTER_BLACKLIST = "blacklist"
     const val FOREGROUND_FILTER_WHITELIST = "whitelist"
 
-    private const val PREFS_NAME = "status_sync_settings"
+    private const val PREFS_NAME = "hikari_settings"
     private const val KEY_SERVER_URL = "server_url"
     private const val KEY_UPLOAD_TOKEN = "upload_token"
     private const val KEY_UPLOAD_INTERVAL = "upload_interval_minutes"
