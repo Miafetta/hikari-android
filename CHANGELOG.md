@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.1
+
+- Updated OkHttp to 4.12.0 and its Okio dependency to 3.6.0 to fix CVE-2023-3635.
+
 ## 2.0
 
 - Renamed the app to Hikari and the package to `cafe.miafetta.hikari`.
